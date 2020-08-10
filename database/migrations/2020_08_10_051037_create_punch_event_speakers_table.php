@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePunchGroupsTable extends Migration
+class CreatePunchEventSpeakersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,13 @@ class CreatePunchGroupsTable extends Migration
      */
     public function up()
     {
-        Schema::create('punch_groups', function (Blueprint $table) {
+        Schema::create('punch_event_speakers', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name', 45)->nullable(false);
-            $table->unsignedBigInteger('department_id')->nullable(false);
-            $table->foreign('department_id')
-                ->references('id')->on('punch_departments');
+            $table->string('name', 100)->nullable(false);
+            $table->string('occupation', 255)->nullable(false);
+            $table->unsignedBigInteger('event_session_id')->nullable(false);
+            $table->foreign('event_session_id')
+                ->references('id')->on('punch_event_sessions');
             $table->timestamp('created_at')->nullable(false);
             $table->timestamp('updated_at')->nullable();
             $table->boolean('enabled')->default(1);
@@ -32,6 +33,6 @@ class CreatePunchGroupsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('punch_groups');
+        Schema::dropIfExists('punch_event_speakers');
     }
 }

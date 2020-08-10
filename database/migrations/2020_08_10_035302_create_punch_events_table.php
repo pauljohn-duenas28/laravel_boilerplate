@@ -18,19 +18,22 @@ class CreatePunchEventsTable extends Migration
             $table->string('event_code', 45)->nullable(false);
             $table->string('name', 75)->nullable(false);
             $table->string('description', 300)->nullable();
-            $table->integer('event_type_id')->nullable(false)
+            $table->unsignedBigInteger('event_type_id')->nullable(false);
+            $table->foreign('event_type_id')
                 ->references('id')->on('punch_event_type_companies');
-            $table->integer('sub_event_type_id')->nullable()
+            $table->unsignedBigInteger('sub_event_type_id')->nullable();
+            $table->foreign('sub_event_type_id')
                 ->references('id')->on('punch_sub_event_type');
             $table->integer('attendee_type_id')->nullable(false); //FK?
                 // ->references('id')->on('punch_sys_roles');
-            $table->integer('company_id')->nullable(false)
+            $table->unsignedBigInteger('company_id')->nullable(false);
+            $table->foreign('company_id')
                 ->references('id')->on('punch_companies');
             $table->integer('slots_no')->nullable()->unsigned();
-            $table->integer('checkin_type_id')->nullable(false); //FK?
+            $table->unsignedBigInteger('checkin_type_id')->nullable(false); //FK?
                 // ->references('id')->on('punch_sys_roles');
             $table->boolean('checkout_option')->nullable(false)->unsigned()->default(0);
-            $table->integer('event_experience_id')->nullable(false); //FK
+            $table->unsignedBigInteger('event_experience_id')->nullable(false); //FK
                 // ->references('id')->on('punch_sys_roles');
             $table->string('livestream_link', 255)->nullable();
             $table->string('building_addrress', 255)->nullable();
@@ -41,7 +44,8 @@ class CreatePunchEventsTable extends Migration
             $table->string('related_link', 255)->nullable();
             $table->string('no_of_beneficiaries', 45)->nullable();
             $table->string('target_beneficiaries', 45)->nullable();
-            $table->integer('sustainable_dev_goal_id')->nullable()
+            $table->unsignedBigInteger('sustainable_dev_goal_id')->nullable();
+            $table->foreign('sustainable_dev_goal_id')
                 ->references('id')->on('punch_sustainable_dev_goal');
             $table->boolean('with_booths')->nullable(false)->default(0);
             $table->boolean('with_raffle')->nullable(false)->default(0);

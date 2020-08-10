@@ -17,15 +17,18 @@ class CreatePunchUsersTable extends Migration
             $table->bigIncrements('id');
             $table->string('email_address', 45)->nullable(false);
             $table->string('password', 45)->nullable(false);
-            $table->integer('user_detail_id')->nullable(false)
+            $table->unsignedBigInteger('user_detail_id')->nullable(false);
+            $table->foreign('user_detail_id')
                 ->references('id')->on('punch_user_details');
-            $table->integer('company_id')->nullable(false)
+            $table->unsignedBigInteger('company_id')->nullable(false);
+            $table->foreign('company_id')
                 ->references('id')->on('punch_companies');
-            $table->integer('sys_role_id')->nullable(false)
+            $table->unsignedBigInteger('sys_role_id')->nullable(false);
+            $table->foreign('sys_role_id')
                 ->references('id')->on('punch_sys_roles');
             $table->dateTime('last_login')->nullable();
             $table->boolean('is_activated')->nullable();
-            $table->timestamp('created_at')->nullable();
+            $table->timestamp('created_at')->nullable(false);
             $table->timestamp('updated_at')->nullable();
             $table->boolean('enabled')->default(1);
         });

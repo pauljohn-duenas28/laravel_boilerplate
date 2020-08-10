@@ -19,10 +19,10 @@ class CreatePunchCompaniesTable extends Migration
             $table->string('name', 45)->nullable(false);
             $table->timestamp('created_at')->nullable(false);
             $table->timestamp('updated_at')->nullable();
-            $table->integer('company_brand_id')->nullable(false)
+            $table->unsignedBigInteger('company_brand_id')->nullable(false);
+            $table->foreign('company_brand_id')
                 ->references('id')->on('punch_company_brands');
             $table->boolean('enabled')->default(1);
-        
         });
     }
 
